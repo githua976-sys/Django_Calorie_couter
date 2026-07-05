@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'calorieProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME':  'calories_db',
+        "USER" : "Amos",
+        "PASSWORD": "machwani",
+        "HOST" : "localhost",
+        "PORT" : "5432"
     }
 }
 
