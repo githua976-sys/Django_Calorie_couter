@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4">
+
+        <h2 class="text-center mb-4">Calorie Counter</h2>
+
+        <!-- Add Food Form -->
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label">Food Name</label>
+                <input type="text" name="food_name" class="form-control" placeholder="Enter food name" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Calories</label>
+                <input type="number" name="calories" class="form-control" placeholder="Enter calories" required>
+            </div>
+
+            <button type="submit" class="btn btn-success">
+                Add Food
+            </button>
+
+        </form>
+
+        <hr>
+
+        <!-- Food Table -->
+        <h4>Food Items</h4>
+
+        <table class="table table-bordered table-striped">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>Food Name</th>
+                    <th>Calories</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for food in foods %}
+
+                <tr>
+                    <td>{{ food.food_name }}</td>
+                    <td>{{ food.calories }}</td>
+                    <td>
+                        <a href="{% url 'delete_food' food.id %}" class="btn btn-danger btn-sm">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+
+                {% empty %}
+
+                <tr>
+                    <td colspan="3" class="text-center">
+                        No food items added.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        <hr>
+
+        <h3>
+            Total Calories:
+            <span class="text-success">
+                {{ total_calories }}
+            </span>
+        </h3>
+
+        <a href="{% url 'reset_calories' %}" class="btn btn-warning">
+            Reset Calories
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
